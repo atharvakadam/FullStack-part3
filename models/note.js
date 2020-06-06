@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 
-const url = process.env.MONGODB_URI
+const url = "mongodb+srv://atharva:akadam@cluster0-xnphi.mongodb.net/note-app?retryWrites=true&w=majority"
 
 console.log('connecting to', url)
 console.log(typeof(url));
