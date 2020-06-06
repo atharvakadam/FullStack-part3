@@ -2,6 +2,9 @@
 const express = require('express');
 const app = express();
 const cors = require('cors')
+const mongoose = require('mongoose');
+
+// DO NOT SAVE YOUR PASSWORD TO GITHUB
 
 app.use(cors());
 
