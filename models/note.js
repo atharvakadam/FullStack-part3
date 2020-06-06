@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 
 // for some reason the heroku thing doesnt work without the dumb string.
-const url = "${process.env.MONGODB_URI}";
+const url =  process.env.MONGODB_URI;
 
 console.log('connecting to', url)
 console.log(typeof(url));
