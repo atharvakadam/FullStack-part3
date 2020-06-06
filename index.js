@@ -94,7 +94,7 @@ const generateId = () => {
     return maxId + 1;
 }
 
-app.post('/api/notes', (request,response) => {
+app.post('/api/notes', (request,response, next) => {
     
     const body = request.body;
 
@@ -111,8 +111,11 @@ app.post('/api/notes', (request,response) => {
     });
     
     note.save().then(savedNote => {
-        response.json(savedNote);
-    });
+        return savedNote.toJSON();
+        // response.json(savedNote);
+    }).then(savedAndFormattedNote => {
+        response.json(savedAndFormattedNote);
+    }).catch(error => next(error));
     // notes = notes.concat(note)
 
     // response.json(note);
@@ -145,6 +148,9 @@ const errorHandler = (error, request, response, next) => {
     if (error.name === 'CastError') {
       return response.status(400).send({ error: 'malformatted id' })
     } 
+    else if(error.name === 'ValidationError') {
+        return response.status(400).json({ error: error.message});
+    }
   
     next(error)
 }
