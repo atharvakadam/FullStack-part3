@@ -8,12 +8,17 @@ const Note = require('../models/note')
 
 beforeEach(async () => {
     await Note.deleteMany({})
-
-    let noteObject = new Note(helper.initialNotes[0])
-    await noteObject.save()
-
-    noteObject = new Note(helper.initialNotes[1])
-    await noteObject.save()
+    console.log('cleared')
+  
+    // This is the solution if the promises were to be executed in a sequential order.
+    // for (let note of helper.initialNotes) {
+    //     let noteObject = new Note(note)
+    //     await noteObject.save()
+    // }
+    const noteObjects = helper.initialNotes.map(note => new Note(note))
+    const promiseArray = noteObjects.map(note => note.save())
+    await Promise.all(promiseArray)
+    console.log('done')
 })
 
 describe('note api test', () => {
