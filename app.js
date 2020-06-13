@@ -27,6 +27,7 @@ app.use('/api/notes',notesRouter)
 app.use('/api/users',usersRouter)
 
 if (process.env.NODE_ENV === 'test') {
+    console.log("TESTING MODE")
     const testingRouter = require('./controllers/test-router')
     app.use('/api/testing', testingRouter)
 }
